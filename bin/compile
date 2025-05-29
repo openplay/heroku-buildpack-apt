@@ -82,6 +82,8 @@ else
   cp -f "$BUILD_DIR/Aptfile" "$APT_CACHE_DIR/Aptfile"
   cat "/etc/apt/sources.list" > "$APT_SOURCES"    # no cp here
   cp -R "/etc/apt/sources.list.d" "$APT_SOURCEPARTS_DIR"
+  # Use us mirror for ubuntu.sources in sources.list.d
+  sed -i 's|http://archive.ubuntu.com/ubuntu/|https://us.archive.ubuntu.com/ubuntu/|g' "$APT_SOURCEPARTS_DIR/ubuntu.sources"
   # add custom repositories from Aptfile to sources.list
   # like>>    :repo:deb http://cz.archive.ubuntu.com/ubuntu artful main universe
   if grep -q -e "^:repo:" "$BUILD_DIR/Aptfile"; then
